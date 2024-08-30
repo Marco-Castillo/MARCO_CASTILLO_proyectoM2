@@ -28,8 +28,51 @@ def p_usuario():
         if nuevamente != 's':
             print("Hasta luego.")
             break
-    # se espera que el usuario presione enter para salir
-    input("Presiona enter para salir...")
+    # se espera que el usuario presione enter para pasar al siguiente programa
+    input("Presiona enter para pasar a revisar el cuadrante")
 
-# llama a la funcion principal para incial el programa
+def ocuadrante(coordenadas):
+    #se agrega un diccionario con la asociasion de signos con los cuadrantes
+    cuadrantes = {
+        (True, True): "I",
+        (False, True): "II",
+        (False, False): "III",
+        (True, False): "IV"
+    }
+    #se desempaquetan las coordenadas de la tupla
+    x, y = coordenadas
+    # se verifica si alguno de los 2 valores es 0
+    if x == 0 or y == 0:
+        #imprime un mensaje indicando que no puede colocar el numero 0
+        print("No puedes colocar 0, intenta de nuevo")
+        return
+    
+    #indica el cuadrante del punto en el diccionario
+    cuadrante = cuadrantes[(x > 0, y > 0)]
+    #imprime el mensaje indicando en que cuadrante se encuentra el punto
+    return f"El punto ({x},{y}) se encuentra en el cuadrante {cuadrante}"
+
+    
+
+def dcuadrante():
+    #este bucle es infinito y se repetira hasta que coloquen coordenadas diferentes a 0
+    while True:
+        x = int(input("\nIngrese X: "))
+        y = int(input("Ingrese Y: "))
+        #crea una tupla con las coordenadas ingresadas
+        coordenadas = (x, y)
+        #llama a la funcion ocuadrante para obtener el cuadrante
+        resultado = ocuadrante(coordenadas)
+        #si el resultado es None significa que las coordenadas son validas
+        if resultado is not None:
+            #imprime el resultado
+            print(resultado)
+            #sale del bucle
+            break
+    #imprime que presione una tecla para poder salir del programa
+    input("Presiona enter para salir")
+
+#llama a la funcion principal p_usuario
 p_usuario()
+#llama a la funcion dcuadrante
+dcuadrante()
